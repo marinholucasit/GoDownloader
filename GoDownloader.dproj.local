@@ -2,11 +2,15 @@
 <BorlandProject>
   <Transactions>
     <Transaction>2020/08/15 18:25:12.790,=C:\Users\Lucas\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2020/08/15 18:26:58.204,D:\laboratorio\Delphi\view\UFrmMain.dfm=C:\Users\Lucas\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
     <Transaction>2020/08/15 18:26:58.204,D:\laboratorio\Delphi\view\UFrmMain.pas=C:\Users\Lucas\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/08/15 18:26:58.204,D:\laboratorio\Delphi\view\UFrmMain.dfm=C:\Users\Lucas\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
     <Transaction>2020/08/15 18:28:09.016,D:\laboratorio\Delphi\GoDownloader.dproj=C:\Users\Lucas\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2020/08/15 18:48:00.429,D:\laboratorio\DelphiAvaliacao\view\UFrmMain.pas=D:\laboratorio\Delphi\view\UFrmMain.pas</Transaction>
     <Transaction>2020/08/15 18:48:00.429,D:\laboratorio\DelphiAvaliacao\view\UFrmMain.dfm=D:\laboratorio\Delphi\view\UFrmMain.dfm</Transaction>
     <Transaction>2020/08/15 18:48:36.231,D:\laboratorio\DelphiAvaliacao\GoDownloader.dproj=D:\laboratorio\Delphi\GoDownloader.dproj</Transaction>
+    <Transaction>2020/08/15 19:13:16.679,=D:\laboratorio\DelphiAvaliacao\Unit1.pas</Transaction>
+    <Transaction>2020/08/15 19:14:18.462,D:\laboratorio\DelphiAvaliacao\controller\uDownloadController.pas=D:\laboratorio\DelphiAvaliacao\Unit1.pas</Transaction>
+    <Transaction>2020/08/15 19:14:50.673,=D:\laboratorio\DelphiAvaliacao\Unit1.pas</Transaction>
+    <Transaction>2020/08/15 19:15:27.362,D:\laboratorio\DelphiAvaliacao\model\uDownloadModel.pas=D:\laboratorio\DelphiAvaliacao\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>
