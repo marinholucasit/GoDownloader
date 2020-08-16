@@ -12,6 +12,7 @@ object frmMain: TfrmMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object panelTop: TPanel
@@ -95,6 +96,9 @@ object frmMain: TfrmMain
     end
   end
   object IdHTTP1: TIdHTTP
+    OnWork = IdHTTP1Work
+    OnWorkBegin = IdHTTP1WorkBegin
+    OnWorkEnd = IdHTTP1WorkEnd
     AllowCookies = True
     ProxyParams.BasicAuthentication = False
     ProxyParams.ProxyPort = 0
