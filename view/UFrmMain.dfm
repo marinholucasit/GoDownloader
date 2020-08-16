@@ -22,7 +22,6 @@ object frmMain: TfrmMain
     Height = 66
     Align = alTop
     TabOrder = 0
-    ExplicitWidth = 447
     object edtUrl: TLabeledEdit
       Left = 0
       Top = 26
@@ -46,9 +45,6 @@ object frmMain: TfrmMain
       Height = 17
       Align = alBottom
       TabOrder = 1
-      ExplicitLeft = 8
-      ExplicitTop = 53
-      ExplicitWidth = 150
     end
   end
   object gbBottons: TGroupBox
@@ -58,9 +54,6 @@ object frmMain: TfrmMain
     Height = 41
     Align = alTop
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 120
-    ExplicitWidth = 454
     object btnStart: TButton
       Left = 9
       Top = 8

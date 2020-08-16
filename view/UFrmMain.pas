@@ -56,18 +56,20 @@ end;
 procedure TfrmMain.IdHTTP1Work(ASender: TObject; AWorkMode: TWorkMode;
   AWorkCount: Int64);
 begin
-  pbProgress.Position := AWorkCount;
+  FIDownloadController.downloadModel
+                      .IdHTTP1Work(ASender, AWorkMode, AWorkCount);
 end;
 
 procedure TfrmMain.IdHTTP1WorkBegin(ASender: TObject; AWorkMode: TWorkMode;
   AWorkCountMax: Int64);
 begin
-  pbProgress.Max := AWorkCountMax;
+  FIDownloadController.downloadModel
+                      .IdHTTP1WorkBegin(ASender, AWorkMode, AWorkCountMax);
 end;
 
 procedure TfrmMain.IdHTTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
 begin
-  pbProgress.Position := 0;
+  //pbProgress.Position := 0;
 end;
 
 end.
