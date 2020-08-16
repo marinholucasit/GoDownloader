@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ExtCtrls,
-  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uDownloadController;
+  IdBaseComponent, IdComponent, IdTCPConnection, IdTCPClient, IdHTTP, uDownloadController,
+  IdAntiFreezeBase, IdAntiFreeze;
 
 type
   TfrmMain = class(TForm)
@@ -18,6 +19,7 @@ type
     Button1: TButton;
     Button2: TButton;
     IdHTTP1: TIdHTTP;
+    IdAntiFreeze1: TIdAntiFreeze;
     procedure btnStartClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure IdHTTP1WorkBegin(ASender: TObject; AWorkMode: TWorkMode;
@@ -25,6 +27,8 @@ type
     procedure IdHTTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
     procedure IdHTTP1Work(ASender: TObject; AWorkMode: TWorkMode;
       AWorkCount: Int64);
+    procedure btnShowMsgClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     FIDownloadController : IDownloadController;
   public
@@ -38,14 +42,27 @@ implementation
 
 {$R *.dfm}
 
+procedure TfrmMain.btnShowMsgClick(Sender: TObject);
+begin
+  FIDownloadController.urlIsValid(edtUrl.Text)
+                      .downloadModel
+                      .showProgress;
+end;
+
 procedure TfrmMain.btnStartClick(Sender: TObject);
 begin
-  FIDownloadController.setUrl(edtUrl.Text)
+  FIDownloadController.urlIsValid(edtUrl.Text)
+                     .setUrl(edtUrl.Text)
                      .setIdHttp(IdHTTP1)
                      .setProgressBar(pbProgress)
                      .downloadModel
                      .startDownload;
+end;
 
+procedure TfrmMain.Button1Click(Sender: TObject);
+begin
+  FIDownloadController.downloadModel
+                      .stopDownload;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -69,7 +86,8 @@ end;
 
 procedure TfrmMain.IdHTTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
 begin
-  //pbProgress.Position := 0;
+  FIDownloadController.downloadModel
+                      .IdHTTP1WorkEnd(ASender, AWorkMode);
 end;
 
 end.

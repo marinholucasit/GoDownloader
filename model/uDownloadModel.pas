@@ -16,7 +16,9 @@ type
     procedure IdHTTP1WorkBegin(ASender: TObject; AWorkMode: TWorkMode;
        AWorkCountMax: Int64);
     procedure IdHTTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
+    procedure showProgress;
     procedure startDownload;
+    procedure stopDownload;
 
     property url: String write setUrl;
     property idHttp: TIdHTTP write setIdHttp;
@@ -25,13 +27,17 @@ type
 
   TDownloadModule = class(TInterfacedObject, IDownloadModule)
   private
+    T : ITask;
     FcUrl: String;
     FoidHttp: TIdHTTP;
     FoProgressBar: TProgressBar;
     FoSaveDialog: TSaveDialog;
     FnWorkCountMax : Int64;
+    FcPercentProgress: String;
+    FcKbProgress: String;
     function calcKByte(AnValue: Double): String;
     function calcPercent(maxValue, value: Double): string;
+    procedure resetVarControllers;
   public
     procedure startDownload;
     procedure setIdHttp(oIdHttp: TIdHTTP);
@@ -42,6 +48,8 @@ type
     procedure IdHTTP1WorkBegin(ASender: TObject; AWorkMode: TWorkMode;
        AWorkCountMax: Int64);
     procedure IdHTTP1WorkEnd(ASender: TObject; AWorkMode: TWorkMode);
+    procedure showProgress;
+    procedure stopDownload;
     constructor Create;
     class function new: IDownloadModule;
 
@@ -83,9 +91,11 @@ procedure TDownloadModule.IdHTTP1Work(ASender: TObject; AWorkMode: TWorkMode;
 var
   percent : Double;
 begin
+  FcPercentProgress := calcPercent(FnWorkCountMax, AWorkCount);
+  FcKbProgress := calcKByte(AWorkCount);
   percent := (AWorkCount * 100 );
-  FoProgressBar.Position := round(percent / FWorkCountMax) ;
-  percent := 0;
+  FoProgressBar.Position := round(percent / FnWorkCountMax) ;
+
 end;
 
 procedure TDownloadModule.IdHTTP1WorkBegin(ASender: TObject;
@@ -97,7 +107,15 @@ end;
 procedure TDownloadModule.IdHTTP1WorkEnd(ASender: TObject;
   AWorkMode: TWorkMode);
 begin
-  FnWorkCountMax := 0;
+  resetVarControllers;
+end;
+
+procedure TDownloadModule.resetVarControllers;
+begin
+  FnWorkCountMax         := 0;
+  FoProgressBar.Position := 0;
+  FcKbProgress           := EmptyStr;
+  FcPercentProgress      := EmptyStr;
 end;
 
 class function TDownloadModule.new: IDownloadModule;
@@ -120,15 +138,20 @@ begin
   FcUrl := AcUrl;
 end;
 
+procedure TDownloadModule.showProgress;
+begin
+  ShowMessage('Baixando ... '+FcKbProgress + sLineBreak +
+              'Download em ... ' +FcPercentProgress );
+end;
+
 procedure TDownloadModule.startDownload;
 var
-  T : ITask;
   fileDw : TFileStream;
   extFile: String;
 begin
   T := TTask.Create( procedure()
   begin
-    TThread.Synchronize(nil,
+    TThread.Queue(TThread.CurrentThread,
     procedure
     begin
       try
@@ -148,12 +171,19 @@ begin
       finally
         FreeAndNil(FoSaveDialog);
       end;
-      //FoidHttp.Get(FcUrl, fileDw);
     end);
   end );
 
   T.Start;
 
+end;
+
+procedure TDownloadModule.stopDownload;
+begin
+  if (Assigned(T)) then
+    T.Cancel;
+  FoidHttp.Disconnect;
+  ShowMessage('Download Interrompido!');
 end;
 
 end.

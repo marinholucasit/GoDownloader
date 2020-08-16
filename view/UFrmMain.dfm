@@ -70,6 +70,7 @@ object frmMain: TfrmMain
       Height = 25
       Caption = 'Exibir Mensagem'
       TabOrder = 1
+      OnClick = btnShowMsgClick
     end
     object Button1: TButton
       Left = 202
@@ -78,6 +79,7 @@ object frmMain: TfrmMain
       Height = 25
       Caption = 'Para Download'
       TabOrder = 2
+      OnClick = Button1Click
     end
     object Button2: TButton
       Left = 300
@@ -106,5 +108,9 @@ object frmMain: TfrmMain
     Request.Ranges = <>
     HTTPOptions = [hoForceEncodeParams]
     Left = 192
+  end
+  object IdAntiFreeze1: TIdAntiFreeze
+    Left = 320
+    Top = 8
   end
 end

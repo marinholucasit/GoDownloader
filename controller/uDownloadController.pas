@@ -11,13 +11,14 @@ type
     function setUrl(AcUrl: String):IDownloadController;
     function setProgressBar(AoProgressBar: TProgressBar):IDownloadController;
     function downloadModel: IDownloadModule;
+    function urlIsValid(AcUrl: String): IDownloadController;
   end;
 
   TDownloadController = class(TInterfacedObject, IDownloadController)
   private
     FDownloadModel: IDownloadModule;
-    function urlIsValid(AcUrl: String): Boolean;
   public
+    function urlIsValid(AcUrl: String): IDownloadController;
     function setIdHttp(oIdHttp: TIdHTTP):IDownloadController;
     function setUrl(AcUrl: String):IDownloadController;
     function setProgressBar(AoProgressBar: TProgressBar):IDownloadController;
@@ -61,19 +62,18 @@ end;
 
 function TDownloadController.setUrl(AcUrl: String): IDownloadController;
 begin
-
-  if not urlIsValid(AcUrl) then
-  begin
-    showMessage('Atenção Informe uma URL');
-    abort;
-  end;
   result := self;
   FDownloadModel.url := AcUrl;
 end;
 
-function TDownloadController.urlIsValid(AcUrl: String): Boolean;
+function TDownloadController.urlIsValid(AcUrl: String): IDownloadController;
 begin
-  result := (AcUrl <> emptystr);
+  result := self;
+  if (AcUrl = emptystr) then
+  begin
+    showMessage('Atenção Informe uma URL');
+    abort;
+  end;
 end;
 
 end.
